@@ -1,4 +1,4 @@
-import { pool } from "../shared/database";
+import { client, pool } from "../shared/database";
 import { Request, Response, Router } from "express";
 
 export async function listCourse(req: Request, res: Response) {
@@ -14,7 +14,15 @@ export async function saveCourse(req: Request, res: Response) {
   console.log(course)
   //conecta com o banco
   const client = await pool.connect();
-  //realiza consulta sql
-  const response = await client.query(`INSERT INTO courses (name) VALUES ('${course.name}')`)
-  res.status(201).json(response);
+  try {
+    const response = await client.query(`INSERT INTO courses (name) VALUES ('${course.name}')`)
+    res.status(201).json(response);
+
+  } catch ( error ) {
+    console.log(error)
+    res.status(401).json(error);
+
+  }finally{
+    client.release()
+  }
 }
