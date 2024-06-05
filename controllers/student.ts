@@ -15,6 +15,6 @@ export async function saveStudent(req: Request, res: Response) {
   //conecta com o banco
   const client = await pool.connect();
   //realiza consulta sql
-  const response = await client.query(`INSERT INTO students (name) VALUES ('${student.name}')`)
+  const response = await client.query(`INSERT INTO students (name, email) VALUES ('${student.name}','${student.email}')`)
   res.status(201).json(response);
 }
