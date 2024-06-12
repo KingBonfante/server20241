@@ -35,12 +35,12 @@ export async function saveStudent(req: Request, res: Response) {
 
 export async function deleteStudent(req: Request, res: Response) {
   const client = await pool.connect();
-  const id = req.params.id
+  const id = req.params.id;
   try {
     const response = await client.query(`DELETE FROM students WHERE id=${id}`);
     res.status(200).json({message: "Registro Excluído"});
   } catch (error) {
-    res.status(404).json({ message: 'Erro na exclusão', error });
+    res.status(404).json({ message: error });
   } finally {
     client.release();
   }
