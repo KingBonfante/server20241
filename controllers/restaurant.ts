@@ -23,7 +23,7 @@ export async function saveRestaurant(req: Request, res: Response) {
   const restaurant = req.body;
   console.log(restaurant)
   try {
-    const response = await client.query(`INSERT INTO students (name, address) VALUES ('${restaurant.name}','${restaurant.address}')`);
+    const response = await client.query(`INSERT INTO restaurants (name, address) VALUES ('${restaurant.name}','${restaurant.address}')`);
     console.log(response.rows[0]);
     res.status(201).json(response);
   } catch (error) {
